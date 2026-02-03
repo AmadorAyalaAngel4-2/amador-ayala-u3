@@ -11,3 +11,6 @@
 
 12.2 Crear un boton al html para redirigir a la página de "Views y Urls completos" 
 (Actualmente esta escondido dentro de la página de CSS/JS. Este link me refiero: https://serviciosweb.sistemasprado.xyz/Files/U3/U3_SERVICIOSWEB/VIEWS_URLS_COMPLETOS.html)
+
+16.1 home.html se ve bastante feo, hay que darle un estilo mas bonito. Cheque el mio
+que hice en biblioteca_project/templates/home.html Funciona bastante bien.

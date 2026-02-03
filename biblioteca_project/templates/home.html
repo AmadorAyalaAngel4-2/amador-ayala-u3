@@ -4,7 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Biblioteca - Inicio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
+      :root {
+        --primary: #6366f1;
+        --secondary: #a855f7;
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --bg-white: #ffffff;
+        --light-gray: #f3f4f6;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -12,61 +26,198 @@
       }
 
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
         min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 20px;
+        color: var(--text-dark);
       }
 
       .container {
-        max-width: 1000px;
+        max-width: 1100px;
         width: 100%;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        background: var(--bg-white);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
 
+      /* Header más moderno */
       .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 40px;
+        background: #fff;
+        padding: 40px 20px 20px;
         text-align: center;
+        border-bottom: 1px solid #e5e7eb;
       }
 
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+        letter-spacing: -0.025em;
+      }
+
+      .header p {
+        color: var(--text-light);
+        font-size: 1.1rem;
+      }
+
+      .content {
+        padding: 40px;
+        background: #f9fafb;
+      }
+
+      /* Sección de Estadísticas (Ahora tiene estilo) */
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        background: white;
+        padding: 20px 40px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        min-width: 150px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .stat-box .number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .stat-box .label {
+        color: var(--text-light);
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* Grid de Servicios */
       .services {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        margin-top: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
       }
 
       .service-card {
         background: white;
-        border: 2px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 25px;
-        transition: all 0.3s ease;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        border-color: #667eea;
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border-color: #e5e7eb;
+      }
+
+      /* Estilo para los iconos/emojis */
+      .icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        background: #f3f4f6;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover .icon {
+        transform: scale(1.1) rotate(5deg);
+        background: #e0e7ff;
+      }
+
+      .service-card h3 {
+        margin-bottom: 20px;
+        color: var(--text-dark);
+        font-size: 1.25rem;
+      }
+
+      /* Contenedor de botones para separarlos */
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-top: auto; /* Empuja los botones al fondo */
       }
 
       .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
         text-decoration: none;
-        border-radius: 25px;
-        transition: all 0.3s ease;
+        border-radius: 12px;
+        transition: all 0.2s ease;
         font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      /* Botón Primario (Acción principal) */
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      }
+
+      .btn-primary:hover {
+        filter: brightness(110%);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+      }
+
+      /* Botón Secundario (Ejemplos) */
+      .btn-secondary {
+        background: white;
+        color: var(--text-dark);
+        border: 2px solid #e5e7eb;
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: #f9fafb;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+        .content {
+          padding: 20px;
+        }
       }
     </style>
   </head>
@@ -81,31 +232,42 @@
         <div class="stats">
           <div class="stat-box">
             <div class="number">{{ total_libros }}</div>
-            <div class="label">Libros</div>
+            <div class="label">Libros Disponibles</div>
           </div>
-          <!-- Más estadísticas... -->
         </div>
 
         <div class="services">
           <div class="service-card">
             <div class="icon">🔐</div>
             <h3>Panel de Administración</h3>
-            <a href="/admin/" class="btn">Acceder al Admin</a>
-            <a href="/ejemplos/admin/" class="btn">📚 Ver Ejemplos</a>
+            <div class="btn-container">
+              <a href="/admin/" class="btn btn-primary">Acceder al Admin</a>
+              <a href="/ejemplos/admin/" class="btn btn-secondary"
+                >📚 Ver Ejemplos</a
+              >
+            </div>
           </div>
 
           <div class="service-card">
             <div class="icon">🌐</div>
             <h3>API REST</h3>
-            <a href="/api/" class="btn">Ver API</a>
-            <a href="/ejemplos/rest/" class="btn">📚 Ver Ejemplos</a>
+            <div class="btn-container">
+              <a href="/api/" class="btn btn-primary">Documentación API</a>
+              <a href="/ejemplos/rest/" class="btn btn-secondary"
+                >📚 Ver Ejemplos</a
+              >
+            </div>
           </div>
 
           <div class="service-card">
             <div class="icon">🧼</div>
             <h3>Servicio SOAP</h3>
-            <a href="/soap/?wsdl" class="btn">Ver WSDL</a>
-            <a href="/ejemplos/soap/" class="btn">📚 Ver Ejemplos</a>
+            <div class="btn-container">
+              <a href="/soap/?wsdl" class="btn btn-primary">Ver WSDL</a>
+              <a href="/ejemplos/soap/" class="btn btn-secondary"
+                >📚 Ver Ejemplos</a
+              >
+            </div>
           </div>
         </div>
       </div>
