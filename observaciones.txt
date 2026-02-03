@@ -4,3 +4,10 @@
 4.3 pip freeze > requirements.txt
 
 6.1 Crear/configurar .env antes de empezar con el settings.py 
+
+11.3 No funcionan muy bien las pruebas de ejemplo 
+
+12.1 Pequeño error en el archivo main.js por linea 60, solamente acomodar el string
+
+12.2 Crear un boton al html para redirigir a la página de "Views y Urls completos" 
+(Actualmente esta escondido dentro de la página de CSS/JS. Este link me refiero: https://serviciosweb.sistemasprado.xyz/Files/U3/U3_SERVICIOSWEB/VIEWS_URLS_COMPLETOS.html)
