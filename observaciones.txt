@@ -1,2 +1,4 @@
 4.3 Agregar django-environ para configuración de .env
 4.3 pip freeze > requirements.txt
+
+6.1 Crear/configurar .env antes de empezar con el settings.py 
