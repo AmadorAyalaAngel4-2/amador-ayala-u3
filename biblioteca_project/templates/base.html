@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Sistema de Biblioteca{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="{% url 'home' %}" class="logo">📚 Biblioteca UTH</a>
+        <ul class="nav-menu">
+          <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+          <li><a href="{% url 'busqueda' %}">Buscar</a></li>
+          <li><a href="{% url 'estadisticas' %}">Estadísticas</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'mi_cuenta' %}">Mi Cuenta</a></li>
+          <li><a href="/admin/">Admin</a></li>
+          <li><a href="{% url 'logout' %}">Salir</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Ingresar</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">{% block content %}{% endblock %}</main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 Sistema de Biblioteca UTH - Servicios Web</p>
+        <p>API REST | SOAP | MySQL | Django 5.2</p>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

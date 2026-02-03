@@ -1,0 +1,103 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Catálogo -
+Biblioteca UTH{% endblock %} {% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>📚 Catálogo de Libros</h1>
+    <p>Explora nuestra colección de {{ total_libros }} libros</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="catalogo-layout">
+    <aside class="filters-sidebar">
+      <h3>Filtros</h3>
+      <form method="get" id="filtros-form">
+        <div class="filter-group">
+          <label>Categoría</label>
+          <select name="categoria">
+            <option value="">Todas</option>
+            {% for cat in categorias %}
+            <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Autor</label>
+          <select name="autor">
+            <option value="">Todos</option>
+            {% for autor in autores %}
+            <option value="{{ autor.id }}">{{ autor.nombre_completo }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Estado</label>
+          <select name="estado">
+            <option value="">Todos</option>
+            <option value="disponible">Disponible</option>
+            <option value="prestado">Prestado</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+      </form>
+    </aside>
+
+    <div class="catalogo-content">
+      <div class="libros-grid">
+        {% for libro in libros %}
+        <div class="libro-card">
+          <div class="libro-imagen">
+            <div class="libro-placeholder">📖</div>
+          </div>
+          <div class="libro-info">
+            <h3>{{ libro.titulo }}</h3>
+            <p class="libro-autor">{{ libro.autor.nombre_completo }}</p>
+            <p class="libro-editorial">{{ libro.editorial.nombre }}</p>
+            <div class="libro-meta">
+              <span class="badge badge-categoria"
+                >{{ libro.categoria.nombre }}</span
+              >
+              {% if libro.stock_disponible > 0 %}
+              <span class="badge badge-disponible"
+                >Disponible ({{ libro.stock_disponible }})</span
+              >
+              {% else %}
+              <span class="badge badge-prestado">No disponible</span>
+              {% endif %}
+            </div>
+            <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-sm"
+              >Ver Detalles</a
+            >
+          </div>
+        </div>
+        {% empty %}
+        <p>No se encontraron libros con los filtros seleccionados.</p>
+        {% endfor %}
+      </div>
+
+      {% if libros.has_other_pages %}
+      <div class="pagination">
+        {% if libros.has_previous %}
+        <a href="?page=1" class="btn">Primera</a>
+        <a href="?page={{ libros.previous_page_number }}" class="btn"
+          >Anterior</a
+        >
+        {% endif %}
+
+        <span
+          >Página {{ libros.number }} de {{ libros.paginator.num_pages }}</span
+        >
+
+        {% if libros.has_next %}
+        <a href="?page={{ libros.next_page_number }}" class="btn">Siguiente</a>
+        <a href="?page={{ libros.paginator.num_pages }}" class="btn">Última</a>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

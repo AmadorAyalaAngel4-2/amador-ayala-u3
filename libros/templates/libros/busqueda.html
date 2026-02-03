@@ -1,0 +1,108 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Buscar Libros -
+Biblioteca UTH{% endblock %} {% block content %}
+<div class="container">
+  <div class="search-page">
+    <h1>🔍 Buscar Libros</h1>
+
+    <div class="search-form-container">
+      <form method="get" id="search-form">
+        <div class="search-input-group">
+          <input
+            type="text"
+            name="q"
+            placeholder="Buscar por título, autor o ISBN..."
+            value="{{ query }}"
+            id="search-input"
+          />
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+
+        <div class="search-filters">
+          <select name="categoria">
+            <option value="">Todas las categorías</option>
+            {% for cat in categorias %}
+            <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+            {% endfor %}
+          </select>
+
+          <select name="autor">
+            <option value="">Todos los autores</option>
+            {% for autor in autores %}
+            <option value="{{ autor.id }}">{{ autor.nombre_completo }}</option>
+            {% endfor %}
+          </select>
+
+          <label>
+            <input type="checkbox" name="disponible" value="1" />
+            Solo disponibles
+          </label>
+        </div>
+      </form>
+    </div>
+
+    <div id="search-results">
+      {% if query %}
+      <h2>Resultados para "{{ query }}"</h2>
+
+      {% if resultados %}
+      <p>Se encontraron {{ resultados|length }} libro(s)</p>
+
+      <div class="libros-grid">
+        {% for libro in resultados %}
+        <div class="libro-card">
+          <div class="libro-imagen">
+            <div class="libro-placeholder">📖</div>
+          </div>
+          <div class="libro-info">
+            <h3>{{ libro.titulo }}</h3>
+            <p class="libro-autor">{{ libro.autor.nombre_completo }}</p>
+            <div class="libro-meta">
+              <span class="badge">{{ libro.categoria.nombre }}</span>
+              {% if libro.stock_disponible > 0 %}
+              <span class="badge badge-disponible">Disponible</span>
+              {% endif %}
+            </div>
+            <a href="{% url 'detalle_libro' libro.id %}" class="btn">Ver</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="no-results">
+        <p>😕 No se encontraron resultados para "{{ query }}"</p>
+        <p>Intenta con otros términos de búsqueda.</p>
+      </div>
+      {% endif %} {% else %}
+      <div class="search-suggestions">
+        <h3>Sugerencias de búsqueda:</h3>
+        <ul>
+          <li>Busca por título: "Cien años de soledad"</li>
+          <li>Busca por autor: "García Márquez"</li>
+          <li>Busca por ISBN: "9780307474728"</li>
+          <li>Usa filtros para refinar tu búsqueda</li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% block extra_js %}
+<script>
+  // Búsqueda AJAX en tiempo real
+  document
+    .getElementById("search-input")
+    .addEventListener("input", function (e) {
+      const query = e.target.value;
+      if (query.length >= 3) {
+        // Realizar búsqueda AJAX
+        fetch(`/api/libros/?search=${query}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Actualizar resultados dinámicamente
+            console.log("Resultados:", data);
+          });
+      }
+    });
+</script>
+{% endblock %} {% endblock %}

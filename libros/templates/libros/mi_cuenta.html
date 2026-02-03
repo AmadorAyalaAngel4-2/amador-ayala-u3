@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Mi Cuenta - {{
+user.username }}{% endblock %} {% block content %}
+<div class="container">
+  <div class="cuenta-layout">
+    <aside class="cuenta-sidebar">
+      <div class="perfil-card">
+        <div class="perfil-avatar">👤</div>
+        <h2>{{ user.get_full_name|default:user.username }}</h2>
+        <p>{{ user.email }}</p>
+      </div>
+
+      <nav class="cuenta-nav">
+        <a href="#prestamos-activos" class="active">Préstamos Activos</a>
+        <a href="#historial">Historial</a>
+        <a href="#configuracion">Configuración</a>
+      </nav>
+    </aside>
+
+    <div class="cuenta-content">
+      <section id="prestamos-activos">
+        <h2>Préstamos Activos</h2>
+        {% if prestamos_activos %}
+        <div class="prestamos-list">
+          {% for prestamo in prestamos_activos %}
+          <div class="prestamo-card">
+            <div class="prestamo-libro">
+              <h4>{{ prestamo.libro.titulo }}</h4>
+              <p>{{ prestamo.libro.autor.nombre_completo }}</p>
+            </div>
+            <div class="prestamo-fechas">
+              <p><strong>Prestado:</strong> {{ prestamo.fecha_prestamo }}</p>
+              <p>
+                <strong>Devolver antes de:</strong> {{
+                prestamo.fecha_devolucion_esperada }}
+              </p>
+              {% if prestamo.esta_vencido %}
+              <span class="badge badge-danger">Vencido</span>
+              {% endif %}
+            </div>
+            <div class="prestamo-acciones">
+              <a
+                href="{% url 'renovar_prestamo' prestamo.id %}"
+                class="btn btn-sm"
+                >Renovar</a
+              >
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p>No tienes préstamos activos.</p>
+        {% endif %}
+      </section>
+
+      <section id="historial">
+        <h2>Historial de Préstamos</h2>
+        {% if historial_prestamos %}
+        <table class="historial-table">
+          <thead>
+            <tr>
+              <th>Libro</th>
+              <th>Fecha Préstamo</th>
+              <th>Fecha Devolución</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for prestamo in historial_prestamos %}
+            <tr>
+              <td>{{ prestamo.libro.titulo }}</td>
+              <td>{{ prestamo.fecha_prestamo }}</td>
+              <td>{{ prestamo.fecha_devolucion_real|default:"Pendiente" }}</td>
+              <td><span class="badge">{{ prestamo.estado }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No tienes historial de préstamos.</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

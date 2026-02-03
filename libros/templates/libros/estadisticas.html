@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Estadísticas -
+Biblioteca UTH{% endblock %} {% block content %}
+<div class="container">
+  <h1>📊 Estadísticas del Sistema</h1>
+
+  <div class="stats-dashboard">
+    <div class="stat-card-large">
+      <h3>Libros por Categoría</h3>
+      <canvas id="chart-categorias"></canvas>
+    </div>
+
+    <div class="stat-card-large">
+      <h3>Préstamos del Mes</h3>
+      <canvas id="chart-prestamos"></canvas>
+    </div>
+
+    <div class="stat-card-large">
+      <h3>Autores Más Prestados</h3>
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Autor</th>
+            <th>Préstamos</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for autor in top_autores %}
+          <tr>
+            <td>{{ autor.nombre_completo }}</td>
+            <td>{{ autor.total_prestamos }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
