@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Libro, Autor, Categoria, Editorial, Prestamo
 
 class AutorSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Autor"""
     nombre_completo = serializers.CharField(read_only=True)
     
     class Meta:
@@ -10,16 +11,19 @@ class AutorSerializer(serializers.ModelSerializer):
                   'nacionalidad', 'biografia', 'fecha_nacimiento']
 
 class CategoriaSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Categoria"""
     class Meta:
         model = Categoria
         fields = ['id', 'nombre', 'descripcion']
 
 class EditorialSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Editorial"""
     class Meta:
         model = Editorial
         fields = ['id', 'nombre', 'pais', 'sitio_web']
 
 class LibroSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Libro"""
     autor_nombre = serializers.CharField(source='autor.nombre_completo', read_only=True)
     categoria_nombre = serializers.CharField(source='categoria.nombre', read_only=True)
     editorial_nombre = serializers.CharField(source='editorial.nombre', read_only=True)
@@ -35,6 +39,7 @@ class LibroSerializer(serializers.ModelSerializer):
         read_only_fields = ['fecha_creacion']
 
 class PrestamoSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Prestamo"""
     libro_titulo = serializers.CharField(source='libro.titulo', read_only=True)
     usuario_nombre = serializers.CharField(source='usuario.username', read_only=True)
     
@@ -46,3 +51,20 @@ class PrestamoSerializer(serializers.ModelSerializer):
             'estado', 'observaciones'
         ]
         read_only_fields = ['fecha_prestamo']
+    
+    def validate(self, data):
+        """Validar que hay stock disponible"""
+        libro = data.get('libro')
+        if libro and libro.stock_disponible <= 0:
+            raise serializers.ValidationError(
+                "No hay ejemplares disponibles de este libro."
+            )
+        return data
+    
+    def create(self, validated_data):
+        """Crear préstamo y actualizar stock"""
+        prestamo = super().create(validated_data)
+        libro = prestamo.libro
+        libro.stock_disponible -= 1
+        libro.save()
+        return prestamo
