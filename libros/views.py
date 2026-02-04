@@ -135,20 +135,20 @@ def busqueda(request):
 
 def estadisticas(request):
     """Vista de estadísticas del sistema"""
-    # Libros por categoría
+    
     libros_por_categoria = Categoria.objects.annotate(
-        total=Count('libro')
+        total=Count('libros')
     ).order_by('-total')
     
-    # Autores más prestados
     autores_prestados = Autor.objects.annotate(
-        total_prestamos=Count('libro__prestamo')
+        total_prestamos=Count('libros__prestamos')
     ).order_by('-total_prestamos')[:10]
     
     context = {
         'libros_por_categoria': libros_por_categoria,
         'top_autores': autores_prestados,
     }
+    
     return render(request, 'libros/estadisticas.html', context)
 
 @login_required

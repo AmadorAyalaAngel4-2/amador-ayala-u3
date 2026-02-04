@@ -20,4 +20,8 @@ Arreglar el error de renderizado de staticfiles en base.html
 Solucionar las rutas y hacer una diferencia entre la API y los templates de la App.
 Por ahora se ve bien
 
-Arreglar detalle libro, minimo error
+Arreglar detalle libro, minimo error (def detalle_libro(request, pk):)
+
+Arreglar la vista de estadisticas (def estadisticas(request):)
+
+Modificar estadisticas.html para que se vea bien, agrege los gráficos y posicione bien los elementos
