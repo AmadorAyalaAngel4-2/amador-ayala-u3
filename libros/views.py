@@ -156,12 +156,12 @@ def mi_cuenta(request):
     """Vista de perfil de usuario"""
     prestamos_activos = Prestamo.objects.filter(
         usuario=request.user,
-        estado='activo'
+        estado__in=['activo', 'renovado']
     ).select_related('libro', 'libro__autor')
     
     historial_prestamos = Prestamo.objects.filter(
         usuario=request.user
-    ).exclude(estado='activo').select_related('libro')[:20]
+    ).exclude(estado__in=['activo', 'renovado']).select_related('libro')[:20]
     
     context = {
         'prestamos_activos': prestamos_activos,

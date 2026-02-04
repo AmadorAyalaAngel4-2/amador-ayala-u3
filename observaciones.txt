@@ -25,3 +25,5 @@ Arreglar detalle libro, minimo error (def detalle_libro(request, pk):)
 Arreglar la vista de estadisticas (def estadisticas(request):)
 
 Modificar estadisticas.html para que se vea bien, agrege los gráficos y posicione bien los elementos
+
+Modificar mi_cuenta.html para que se vea bien, mejore el diseño y posicione bien los elementos

@@ -102,3 +102,10 @@ class Prestamo(models.Model):
     
     def __str__(self):
         return f"{self.libro.titulo} - {self.usuario.username}"
+
+    @property
+    def esta_vencido(self):
+        from datetime import date
+        if self.estado in ['activo', 'renovado'] and self.fecha_devolucion_esperada < date.today():
+            return True
+        return False
