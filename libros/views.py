@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from datetime import date, timedelta
 
+from django.contrib.auth.models import User
+
 from .models import Libro, Autor, Categoria, Editorial, Prestamo
 from .serializers import (
     LibroSerializer, AutorSerializer, CategoriaSerializer,
