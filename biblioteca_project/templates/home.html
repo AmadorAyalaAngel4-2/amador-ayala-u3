@@ -180,6 +180,7 @@
         transition: all 0.2s ease;
         font-weight: 600;
         font-size: 0.95rem;
+        cursor: pointer;
       }
 
       /* Botón Primario (Acción principal) */
@@ -209,6 +210,23 @@
         border-color: var(--primary);
         color: var(--primary);
         background: #f9fafb;
+      }
+
+      /* NUEVOS ESTILOS PARA EL FOOTER CON EL BOTÓN */
+      .footer-action {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 2px dashed #e5e7eb;
+        text-align: center;
+        width: 100%;
+      }
+
+      .btn-large {
+        font-size: 1.2rem;
+        padding: 18px 50px;
+        border-radius: 50px;
+        width: auto;
+        min-width: 250px;
       }
 
       @media (max-width: 768px) {
@@ -270,6 +288,14 @@
             </div>
           </div>
         </div>
+
+        <div class="footer-action">
+            <p style="margin-bottom: 15px; color: #6b7280;">¿Quieres navegar por el catálogo?</p>
+            <a href="{% url 'index' %}" class="btn btn-primary btn-large">
+                🚀 Ingresar a la Plataforma
+            </a>
+        </div>
+
       </div>
     </div>
   </body>

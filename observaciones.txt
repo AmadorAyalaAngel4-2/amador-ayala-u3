@@ -27,3 +27,11 @@ Arreglar la vista de estadisticas (def estadisticas(request):)
 Modificar estadisticas.html para que se vea bien, agrege los gráficos y posicione bien los elementos
 
 Modificar mi_cuenta.html para que se vea bien, mejore el diseño y posicione bien los elementos
+
+Agregar un template para el logout, que diga "Has cerrado sesión correctamente" y un boton para volver al login
+agregar fn en views.py, y url en urls.py.
+
+Ahora igualmente hice un login. Agrege un template (login.html) y una vista (iniciar_sesion) y una url (login/).
+Funciona bastante bien.
+
+Cambie base.html para que redirija a index.html en vez de home.html, mejor UX

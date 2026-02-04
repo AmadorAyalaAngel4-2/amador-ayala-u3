@@ -24,6 +24,9 @@ urlpatterns = [
     path('busqueda/', views.busqueda, name='busqueda'),
     path('estadisticas/', views.estadisticas, name='estadisticas'),
     path('mi-cuenta/', views.mi_cuenta, name='mi_cuenta'),
+
+    path('logout/', views.cerrar_sesion, name='logout'),
+    path('login/', views.iniciar_sesion, name='login'),
     
     path('solicitar-prestamo/<int:libro_id>/', views.solicitar_prestamo, name='solicitar_prestamo'),
     path('renovar-prestamo/<int:prestamo_id>/', views.renovar_prestamo, name='renovar_prestamo'),

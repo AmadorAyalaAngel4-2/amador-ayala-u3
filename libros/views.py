@@ -6,6 +6,8 @@ from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from datetime import date, timedelta
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.models import User
 
@@ -207,3 +209,28 @@ def renovar_prestamo(request, prestamo_id):
         prestamo.save()
     
     return redirect('mi_cuenta')
+
+def cerrar_sesion(request):
+    """
+    Cierra la sesión del usuario y muestra la página de despedida.
+    """
+    logout(request) # 1. Esto borra la sesión y las cookies del usuario
+    
+    # 2. Renderiza tu template nuevo
+    return render(request, 'libros/logout.html')
+
+def iniciar_sesion(request):
+    # 1. Si enviaron el formulario (POST)
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # Usuario y contraseña correctos
+            usuario = form.get_user()
+            login(request, usuario)  # Crea la sesión
+            return redirect('catalogo') # <--- CAMBIA 'catalogo' por el nombre de tu pagina de inicio
+    
+    # 2. Si solo están entrando a la página (GET)
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'libros/login.html', {'form': form})
