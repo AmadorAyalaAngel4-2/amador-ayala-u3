@@ -14,3 +14,10 @@
 
 16.1 home.html se ve bastante feo, hay que darle un estilo mas bonito. Cheque el mio
 que hice en biblioteca_project/templates/home.html Funciona bastante bien.
+
+Arreglar el error de renderizado de staticfiles en base.html
+
+Solucionar las rutas y hacer una diferencia entre la API y los templates de la App.
+Por ahora se ve bien
+
+Arreglar detalle libro, minimo error

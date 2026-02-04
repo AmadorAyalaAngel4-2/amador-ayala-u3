@@ -103,11 +103,11 @@ def catalogo(request):
     }
     return render(request, 'libros/catalogo.html', context)
 
-def detalle_libro(request, libro_id):
+def detalle_libro(request, pk):
     """Vista de detalle de un libro"""
     libro = get_object_or_404(
         Libro.objects.select_related('autor', 'categoria', 'editorial'),
-        id=libro_id
+        id=pk
     )
     context = {'libro': libro}
     return render(request, 'libros/detalle_libro.html', context)
