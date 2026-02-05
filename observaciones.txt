@@ -42,3 +42,7 @@ Anadir templates para los ejemplos de soap, rest y admin, cambiar el "Volver a l
 y arreglar el href de los botones
 
 Arreglar pruebas en ejemplos_rest.html, script
+
+Modificar RUN en dockerfile, error con mysqlclient
+
+Modificar docker-compose.yml, error con mysqlclient port
