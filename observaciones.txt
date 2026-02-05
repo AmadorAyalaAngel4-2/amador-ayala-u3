@@ -46,3 +46,10 @@ Arreglar pruebas en ejemplos_rest.html, script
 Modificar RUN en dockerfile, error con mysqlclient
 
 Modificar docker-compose.yml, error con mysqlclient port
+
+Agregar cryptography en requirements.txt, necesario para container
+
+Agregar comando para poblar la base de datos:
+docker cp populate.py biblioteca_web:/app/populate_manual.py
+docker-compose exec web python /app/populate_manual.py
+(hubo errores en el encoding, por eso se debe usar populate_manual.py)
