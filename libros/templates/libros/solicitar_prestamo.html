@@ -1,49 +1,93 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Solicitar Préstamo
-- {{ libro.titulo }}{% endblock %} {% block content %}
-<div class="container">
-  <h1>📋 Solicitar Préstamo</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-  <div class="prestamo-form-layout">
-    <div class="libro-resumen">
-      <h3>{{ libro.titulo }}</h3>
-      <p>{{ libro.autor.nombre_completo }}</p>
-      <p><strong>Disponibles:</strong> {{ libro.stock_disponible }}</p>
+{% block title %}Solicitar: {{ libro.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    
+    <div class="card shadow-lg border-0 overflow-hidden" style="max-width: 900px; width: 100%; border-radius: 20px;">
+        <div class="row g-0">
+            
+            <div class="col-lg-5 text-white d-flex flex-column justify-content-center align-items-center p-5 position-relative" 
+                 style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                
+                <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                
+                <div class="mb-4 text-center">
+                    <span style="font-size: 5rem; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">📖</span>
+                </div>
+                
+                <h3 class="fw-bold text-center mb-2">{{ libro.titulo }}</h3>
+                <p class="text-white-50 text-center mb-4">
+                    <i class="fas fa-user-edit me-1"></i> {{ libro.autor.nombre_completo }}
+                </p>
+
+                <div class="badge bg-white text-primary px-3 py-2 rounded-pill shadow-sm mb-3">
+                    <i class="fas fa-check-circle me-1"></i> {{ libro.stock_disponible }} Copias disponibles
+                </div>
+                
+                <div class="small text-white-50 text-center mt-3">
+                    <i class="fas fa-info-circle me-1"></i>
+                    ISBN: {{ libro.isbn }}
+                </div>
+            </div>
+
+            <div class="col-lg-7 bg-white p-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold text-dark m-0">Confirmar Solicitud</h2>
+                    <span class="text-muted small">Paso 1 de 1</span>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-floating mb-3">
+                        <select name="dias" class="form-select border-2" id="id_dias" required style="border-radius: 12px;">
+                            <option value="7">7 días (Semana corta)</option>
+                            <option value="14" selected>14 días (Estándar)</option>
+                            <option value="21">21 días (Extendido)</option>
+                            <option value="30">30 días (Mes completo)</option>
+                        </select>
+                        <label for="id_dias" class="text-muted"><i class="far fa-calendar-alt me-1"></i> Duración del préstamo</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea name="notas" class="form-control border-2" placeholder="Notas" id="id_notas" style="height: 100px; border-radius: 12px;"></textarea>
+                        <label for="id_notas" class="text-muted"><i class="far fa-comment-dots me-1"></i> Notas adicionales (Opcional)</label>
+                    </div>
+
+                    <div class="alert alert-light border d-flex align-items-start mb-4 rounded-3">
+                        <input class="form-check-input mt-1 me-3" type="checkbox" name="acepto_terminos" id="id_terminos" required style="transform: scale(1.2);">
+                        <label class="form-check-label small text-muted" for="id_terminos">
+                            Me comprometo a cuidar el material y devolverlo en la fecha estipulada. Entiendo que el retraso puede generar sanciones en mi cuenta de biblioteca.
+                        </label>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-light btn-lg px-4 rounded-pill fw-bold text-muted">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold shadow-sm">
+                            Confirmar <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            
+        </div>
     </div>
-
-    <form method="post" class="prestamo-form">
-      {% csrf_token %}
-
-      <div class="form-group">
-        <label>Días de préstamo:</label>
-        <select name="dias" required>
-          <option value="7">7 días</option>
-          <option value="14" selected>14 días</option>
-          <option value="21">21 días</option>
-          <option value="30">30 días</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Notas (opcional):</label>
-        <textarea name="notas" rows="3"></textarea>
-      </div>
-
-      <div class="terminos">
-        <label>
-          <input type="checkbox" name="acepto_terminos" required />
-          Acepto los términos y condiciones de préstamo
-        </label>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">
-          Confirmar Préstamo
-        </button>
-        <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-secondary"
-          >Cancelar</a
-        >
-      </div>
-    </form>
-  </div>
 </div>
+
+<style>
+    .form-select:focus, .form-control:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+    }
+    .form-check-input:checked {
+        background-color: #6366f1;
+        border-color: #6366f1;
+    }
+</style>
 {% endblock %}
