@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
-from libros.soap_services import django_soap_application
+from libros.soap_services import soap_view
 from . import views as project_views # Alias para evitar conflicto si importas views de la app
 
 # Importamos el router desde tu app libros
@@ -18,7 +18,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # 3. Servicio SOAP
-    re_path(r'^soap/', django_soap_application),
+    re_path(r'^soap/', soap_view),
 
     # 4. API REST (Conectado al Router)
     # Esto generará rutas como: /api/libros/, /api/autores/
