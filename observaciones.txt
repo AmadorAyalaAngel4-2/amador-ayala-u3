@@ -37,3 +37,8 @@ Funciona bastante bien.
 Cambie base.html para que redirija a index.html en vez de home.html, mejor UX
 
 Mejorar el diseño de solicitar_prestamo.html
+
+Anadir templates para los ejemplos de soap, rest y admin, cambiar el "Volver a la Guía" por "Volver al Inicio"
+y arreglar el href de los botones
+
+Arreglar pruebas en ejemplos_rest.html, script
