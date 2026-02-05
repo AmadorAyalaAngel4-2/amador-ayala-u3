@@ -35,3 +35,5 @@ Ahora igualmente hice un login. Agrege un template (login.html) y una vista (ini
 Funciona bastante bien.
 
 Cambie base.html para que redirija a index.html en vez de home.html, mejor UX
+
+Mejorar el diseño de solicitar_prestamo.html
